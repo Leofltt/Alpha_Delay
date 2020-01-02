@@ -57,7 +57,7 @@ void DelayGUI::paint (Graphics& g)
    Rectangle<int> title (0, 10, getWidth(), 20);
     
     g.fillAll(Colours::black);
-    g.setColour(Colours::darkcyan);
+    g.setColour(Colours::cyan);
     g.drawText("ALPHA DELAY",title, Justification::centredTop);
     g.setColour(Colours::lightcyan);
     g.drawText("Delay Time", 20, 150, 85, 20, Justification::centredTop);

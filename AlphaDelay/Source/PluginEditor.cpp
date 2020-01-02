@@ -27,7 +27,7 @@ AlphaDelayAudioProcessorEditor::~AlphaDelayAudioProcessorEditor()
 //==============================================================================
 void AlphaDelayAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::black);
+    g.fillAll (Colours::dimgrey);
 
 }
 

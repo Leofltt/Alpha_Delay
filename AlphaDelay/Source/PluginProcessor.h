@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "CircularBuffer.h"
 
 #define FB_ID "feedback"
 #define FB_NAME "Feedback"
@@ -75,18 +76,11 @@ public:
     AudioProcessorValueTreeState m_parameters;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
+    CircularBuffer c;
+    
     
 private:
     
-    AudioBuffer<float> m_DelayBuffer;
-    int m_writePosition { 0 };
-    int m_sampleRate { 44100 };
-    
-    std::atomic<double> m_delayTime;
-    std::atomic<double> m_feedback;
-    std::atomic<double> m_spread;
-    std::atomic<double> m_drywet;
-    static_assert(std::atomic<double>::is_always_lock_free);
     
     
     //==============================================================================
