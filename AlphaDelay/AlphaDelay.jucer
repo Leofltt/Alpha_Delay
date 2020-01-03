@@ -15,6 +15,9 @@
             file="Source/CircularBuffer.h"/>
       <FILE id="uu6nYX" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
+      <FILE id="c2p7cf" name="SimpleFilter.cpp" compile="1" resource="0"
+            file="Source/SimpleFilter.cpp"/>
+      <FILE id="oUQb0K" name="SimpleFilter.h" compile="0" resource="0" file="Source/SimpleFilter.h"/>
       <FILE id="tr9EQL" name="DelayGUI.h" compile="0" resource="0" file="Source/DelayGUI.h"/>
       <FILE id="Hs0Qt8" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>

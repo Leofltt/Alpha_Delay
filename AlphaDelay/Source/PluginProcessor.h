@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CircularBuffer.h"
+#include "SimpleFilter.h"
 
 #define FB_ID "feedback"
 #define FB_NAME "Feedback"
@@ -21,6 +22,8 @@
 #define DRYWET_NAME "Dry Wet"
 #define DELAYTIME_ID "delayTime"
 #define DELAYTIME_NAME "Delay Time"
+#define CF_ID "cutoff"
+#define CF_NAME "Cutoff Frequency"
 
 //==============================================================================
 /**
@@ -64,19 +67,12 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-
-    void writeDelayBuffer(AudioBuffer<float>& buffer, AudioBuffer<float>& delayBuffer, int writePosition, int channel);
-    void readDelayBuffer(AudioBuffer<float>& buffer, AudioBuffer<float>& delayBuffer, int writePosition, int channel);
-    void delayFeedback(AudioBuffer<float>& buffer, AudioBuffer<float>& delayBuffer, int writePosition, int channel);
-    
-    void setDelayParameters(float *fb, float *spread, float *delaytime, float *drywet);
-    
-    float smooth (float start, float end, float factor);
     
     AudioProcessorValueTreeState m_parameters;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     CircularBuffer c;
+    OnePoleOneZero filter;
     
     
 private:

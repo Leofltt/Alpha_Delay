@@ -85,6 +85,8 @@ void CircularBuffer::delayFeedback(AudioBuffer<float>& buffer, int channel, floa
     if (*spread != spr) m_spread.store(*spread);
     if (*dt != delt) m_delayTime.store(*dt);
     
+    if (channel % 2 == 1) *spread *= -1;
+    
     const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
 
     if (d > b + writePosition)

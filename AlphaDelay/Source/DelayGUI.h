@@ -32,11 +32,13 @@ private:
     Slider m_delayTimeSlider;
     Slider m_dryWetSlider;
     Slider m_spreadSlider;
+    Slider m_cutoffSlider;
     
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_fbValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_delayTimeValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_drywetValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_spreadValue;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_cutoffValue;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayGUI)
 };

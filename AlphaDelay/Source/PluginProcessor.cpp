@@ -34,9 +34,10 @@ AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createPa
     
     std::vector<std::unique_ptr<RangedAudioParameter>> t_params;
     
-//    auto range = NormalisableRange<float> (10.0f, 19000.0f);
-//    range.setSkewForCentre(1000);
-
+    auto range = NormalisableRange<float> (0.0f, 20000.0f);
+    range.setSkewForCentre(1000);
+    
+    auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 800.0f);
     auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f,0.2f);
     auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f,0.0f);
     auto dwParam = std::make_unique<AudioParameterFloat>(DRYWET_ID, DRYWET_NAME, 0.0f, 1.0f,0.7f);
@@ -46,6 +47,7 @@ AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createPa
     t_params.push_back(std::move(spreadParam));
     t_params.push_back(std::move(dwParam));
     t_params.push_back(std::move(dtParam));
+    t_params.push_back(std::move(cfParam));
 
     return { t_params.begin(), t_params.end() };
 }
@@ -120,6 +122,7 @@ void AlphaDelayAudioProcessor::changeProgramName (int index, const String& newNa
 void AlphaDelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     c.initParameters(m_parameters.getRawParameterValue(FB_ID), m_parameters.getRawParameterValue(SPREAD_ID), m_parameters.getRawParameterValue(DELAYTIME_ID), m_parameters.getRawParameterValue(DRYWET_ID), sampleRate, samplesPerBlock, 5);
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID), sampleRate);
 }
 void AlphaDelayAudioProcessor::releaseResources()
 {
@@ -156,18 +159,15 @@ void AlphaDelayAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID), getSampleRate());
+    filter.setLowPass();
+    
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
     c.processDelay(buffer, totalNumInputChannels, m_parameters.getRawParameterValue(FB_ID), m_parameters.getRawParameterValue(SPREAD_ID), m_parameters.getRawParameterValue(DELAYTIME_ID), m_parameters.getRawParameterValue(DRYWET_ID));
+    filter.processFilter(buffer, totalNumInputChannels);
 
-}
-
-
-float AlphaDelayAudioProcessor::smooth (float start, float end, float factor)
-{
-    float c = start * factor + end * (1 - factor);
-    return c;
 }
 
 //==============================================================================

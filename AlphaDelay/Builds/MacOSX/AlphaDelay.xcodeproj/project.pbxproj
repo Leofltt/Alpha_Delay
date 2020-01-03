@@ -93,6 +93,10 @@
 			isa = PBXBuildFile;
 			fileRef = B2793675AAAC1100C7B8A4D7;
 		};
+		92E60C6A2CD14F0E3531A653 = {
+			isa = PBXBuildFile;
+			fileRef = 8AB430981A87E753F6C24C03;
+		};
 		5556B16DC58A59B805ED11BA = {
 			isa = PBXBuildFile;
 			fileRef = 664CB9221B3B4720EE3914F7;
@@ -390,11 +394,25 @@
 			path = "../../JuceLibraryCode/include_juce_audio_plugin_client_Standalone.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		8AB430981A87E753F6C24C03 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SimpleFilter.cpp;
+			path = ../../Source/SimpleFilter.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		9257A560605D2A4DF072EC3F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_opengl.mm";
 			path = "../../JuceLibraryCode/include_juce_opengl.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		95189B44E251620173338C40 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SimpleFilter.h;
+			path = ../../Source/SimpleFilter.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		9C53CFF677C85B0B403D122E = {
@@ -409,6 +427,27 @@
 			lastKnownFileType = wrapper.framework;
 			name = QuartzCore.framework;
 			path = System/Library/Frameworks/QuartzCore.framework;
+			sourceTree = SDKROOT;
+		};
+		E7337DFD8674248F44A6436C = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.cfbundle;
+			includeInIndex = 0;
+			path = AlphaDelay.component;
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		87CD508270B9111BDCE23C5B = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = AlphaDelay.app;
+			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		9F1113B14D12991B7A2F9708 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = CoreAudioKit.framework;
+			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
 		};
 		9F646F4A0A074F54A883271C = {
@@ -431,27 +470,6 @@
 			name = "include_juce_audio_devices.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
-		};
-		E7337DFD8674248F44A6436C = {
-			isa = PBXFileReference;
-			explicitFileType = wrapper.cfbundle;
-			includeInIndex = 0;
-			path = AlphaDelay.component;
-			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		87CD508270B9111BDCE23C5B = {
-			isa = PBXFileReference;
-			explicitFileType = wrapper.application;
-			includeInIndex = 0;
-			path = AlphaDelay.app;
-			sourceTree = "BUILT_PRODUCTS_DIR";
-		};
-		9F1113B14D12991B7A2F9708 = {
-			isa = PBXFileReference;
-			lastKnownFileType = wrapper.framework;
-			name = CoreAudioKit.framework;
-			path = System/Library/Frameworks/CoreAudioKit.framework;
-			sourceTree = SDKROOT;
 		};
 		A37214A1C42601478DB15A2C = {
 			isa = PBXFileReference;
@@ -644,6 +662,8 @@
 				F1F05ACA01B226A7E732E6A4,
 				7B81378F812031741952E38F,
 				B2793675AAAC1100C7B8A4D7,
+				8AB430981A87E753F6C24C03,
+				95189B44E251620173338C40,
 				12D794415FB4B5DB2371D099,
 				4E143207381A032F19DFECA5,
 			);
@@ -1530,6 +1550,7 @@
 				EE04126A9EA72654E2089FE7,
 				46EAC6C8331A413D4C1032D7,
 				A2AF702087B6A5BD4E48EB4B,
+				92E60C6A2CD14F0E3531A653,
 				5556B16DC58A59B805ED11BA,
 				FF967D27BAD109E885E212AB,
 				4C4517E08945E97CE63AA15C,

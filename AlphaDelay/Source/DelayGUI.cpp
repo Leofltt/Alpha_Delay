@@ -14,7 +14,7 @@
 //==============================================================================
 DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
 {
-    setSize(400, 200);
+    setSize(500, 200);
     m_fbSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     m_fbSlider.setRange(0.0, 0.9);
     m_fbSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
@@ -42,6 +42,14 @@ DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
     m_delayTimeSlider.setPopupDisplayEnabled(true, true, this);
     addAndMakeVisible(&m_delayTimeSlider);
     p_delayTimeValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, DELAYTIME_ID,m_delayTimeSlider);
+    
+    m_cutoffSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    m_cutoffSlider.setRange(1.0, 5000.0);
+    m_cutoffSlider.setSkewFactorFromMidPoint(1000.0);
+    m_cutoffSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
+    m_cutoffSlider.setPopupDisplayEnabled(true, true, this);
+    addAndMakeVisible(&m_cutoffSlider);
+    p_cutoffValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, CF_ID,m_cutoffSlider);
 
     
 
@@ -79,6 +87,7 @@ void DelayGUI::resized()
     m_fbSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_spreadSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_dryWetSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
+    m_cutoffSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     
 
 }
