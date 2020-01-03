@@ -24,6 +24,8 @@
 #define DELAYTIME_NAME "Delay Time"
 #define CF_ID "cutoff"
 #define CF_NAME "Cutoff Frequency"
+#define FT_ID "filterType"
+#define FT_NAME "Filter Type"
 
 //==============================================================================
 /**

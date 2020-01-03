@@ -34,11 +34,15 @@ private:
     Slider m_spreadSlider;
     Slider m_cutoffSlider;
     
+    ComboBox m_filterType;
+    
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_fbValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_delayTimeValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_drywetValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_spreadValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_cutoffValue;
+    
+    std::unique_ptr <AudioProcessorValueTreeState::ComboBoxAttachment> p_comboBoxValue;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayGUI)
 };

@@ -10,11 +10,13 @@
 
 #include "SimpleFilter.h"
 
-void OnePoleOneZero::updateFilter(float *cf, int sr)
+void OnePoleOneZero::updateFilter(float *cf, int sr, float *ft)
 {
     auto cutoff = m_cutoff.load();
+    auto filtertype = m_filterType.load();
     if (*cf != cutoff) m_cutoff.store(*cf);
     if (sr != sampleRate) sampleRate = sr;
+    if (*ft != filtertype) m_filterType.store(*ft);
     
 }
 
@@ -36,22 +38,30 @@ void OnePoleOneZero::setHighPass()
     b1 = (sr - cutoff)/(sr + cutoff);
 }
 
-void OnePoleOneZero::processFilter(AudioBuffer<float>& buffer, int total_num_channels)
+void OnePoleOneZero::setFilter()
 {
-    const int bufferLength = buffer.getNumSamples();
+    auto ft = m_filterType.load();
+    
+    if (ft == 0) setLowPass();
+    if (ft == 1) setHighPass();
+}
+
+void OnePoleOneZero::processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
+{
     
     for (int channel = 0; channel < total_num_channels; ++channel)
     {
         auto w = buffer.getWritePointer(channel);
         auto r = buffer.getReadPointer(channel);
         
-        for (int n = 1; n < bufferLength; n++)
+        
+        for (int n = 0; n < processBlockLength; n++)
         {
-            float x = *r;
+            float x = buffer.getSample(channel, *r + n);
             float y = x * a0 + x1 * a1 + y1 * b1;
             x1 = x;
             y1 = y;
-            *w = y;
+            buffer.setSample(channel, *w + n, y);
         }
     }
 }

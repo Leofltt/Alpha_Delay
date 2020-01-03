@@ -17,9 +17,9 @@ public:
     void processDelay(AudioBuffer<float>& buffer, int total_num_channels, float *fb, float *spread, float *delaytime, float *drywet);
     void initParameters(float *fb, float *spread, float *delaytime, float *drywet, int sr, int samplesperblock, int maxdel);
     
-private:
+    AudioBuffer<float> delayBuffer; // originally this was private, but I wanted to be able to process the delay buffer externally so I made it public
     
-    AudioBuffer<float> delayBuffer;
+private:
     
     int writePosition { 0 };
     int sampleRate { 44100 };

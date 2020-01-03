@@ -14,7 +14,7 @@
 //==============================================================================
 DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
 {
-    setSize(500, 200);
+    setSize(500, 250);
     m_fbSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     m_fbSlider.setRange(0.0, 0.9);
     m_fbSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
@@ -50,6 +50,11 @@ DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
     m_cutoffSlider.setPopupDisplayEnabled(true, true, this);
     addAndMakeVisible(&m_cutoffSlider);
     p_cutoffValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, CF_ID,m_cutoffSlider);
+    
+    m_filterType.setJustificationType(Justification::centred);
+    m_filterType.addItem("Low Pass Filter", 1);
+    m_filterType.addItem("High Pass Filter", 2);
+    addAndMakeVisible(&m_filterType);
 
     
 
@@ -70,8 +75,9 @@ void DelayGUI::paint (Graphics& g)
     g.setColour(Colours::lightcyan);
     g.drawText("Delay Time", 20, 150, 85, 20, Justification::centredTop);
     g.drawText("Feedback", 110, 150, 85, 20, Justification::centredTop);
-    g.drawText("Spread", 200, 150, 85, 20, Justification::centredTop);
-    g.drawText("Dry/Wet", 290, 150, 85, 20, Justification::centredTop);
+    g.drawText("Spread", 195, 150, 85, 20, Justification::centredTop);
+    g.drawText("Dry/Wet", 285, 150, 85, 20, Justification::centredTop);
+    g.drawText("Filter Cutoff", 370, 150, 85, 20, Justification::centredTop);
     
 }
 
@@ -88,6 +94,10 @@ void DelayGUI::resized()
     m_spreadSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_dryWetSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_cutoffSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
+    
+    Rectangle<int> area1 = getLocalBounds().reduced(25);
+    
+    m_filterType.setBounds(area1.removeFromBottom(20));
     
 
 }
