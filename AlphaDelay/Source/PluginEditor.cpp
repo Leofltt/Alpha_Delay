@@ -16,7 +16,7 @@ AlphaDelayAudioProcessorEditor::AlphaDelayAudioProcessorEditor (AlphaDelayAudioP
     : AudioProcessorEditor (&p), processor (p), delay(p)
 {
 
-    setSize (500, 250);
+    setSize (555, 250);
     addAndMakeVisible(&delay);
 }
 
@@ -35,7 +35,7 @@ void AlphaDelayAudioProcessorEditor::resized()
 {
     Rectangle<int> area = getLocalBounds();
     
-    const int componentWidth = 500;
+    const int componentWidth = 555;
     const int componentHeight = 250;
     
     delay.setBounds(area.removeFromLeft(componentWidth).removeFromTop(componentHeight));

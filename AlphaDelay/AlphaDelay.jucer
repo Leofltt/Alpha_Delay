@@ -15,6 +15,10 @@
             file="Source/CircularBuffer.h"/>
       <FILE id="uu6nYX" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
+      <FILE id="hGdVDE" name="StateVariableFilter.cpp" compile="1" resource="0"
+            file="Source/StateVariableFilter.cpp"/>
+      <FILE id="VYhLaw" name="StateVariableFilter.h" compile="0" resource="0"
+            file="Source/StateVariableFilter.h"/>
       <FILE id="c2p7cf" name="SimpleFilter.cpp" compile="1" resource="0"
             file="Source/SimpleFilter.cpp"/>
       <FILE id="oUQb0K" name="SimpleFilter.h" compile="0" resource="0" file="Source/SimpleFilter.h"/>

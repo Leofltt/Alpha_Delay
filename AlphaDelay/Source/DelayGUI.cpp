@@ -14,7 +14,7 @@
 //==============================================================================
 DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
 {
-    setSize(500, 250);
+    setSize(555, 250);
     m_fbSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     m_fbSlider.setRange(0.0, 0.9);
     m_fbSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
@@ -53,8 +53,19 @@ DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
     
     m_filterType.setJustificationType(Justification::centred);
     m_filterType.addItem("Low Pass Filter", 1);
-    m_filterType.addItem("High Pass Filter", 2);
+    m_filterType.addItem("Band Pass Filter", 2);
+    m_filterType.addItem("High Pass Filter", 3);
+    m_filterType.addItem("Notch Filter", 4);
     addAndMakeVisible(&m_filterType);
+    
+    m_resoSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    m_resoSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
+    m_resoSlider.setPopupDisplayEnabled(true, true, this);
+    addAndMakeVisible(&m_resoSlider);
+    m_resoSlider.setRange(0.5, 500);
+    
+    
+    p_resoValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, RES_ID,m_resoSlider);
 
     
 
@@ -78,6 +89,7 @@ void DelayGUI::paint (Graphics& g)
     g.drawText("Spread", 195, 150, 85, 20, Justification::centredTop);
     g.drawText("Dry/Wet", 285, 150, 85, 20, Justification::centredTop);
     g.drawText("Filter Cutoff", 370, 150, 85, 20, Justification::centredTop);
+    g.drawText("Filter Q", 455, 150, 85, 20, Justification::centredTop);
     
 }
 
@@ -94,6 +106,7 @@ void DelayGUI::resized()
     m_spreadSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_dryWetSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     m_cutoffSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
+    m_resoSlider.setBounds(area.removeFromLeft(sliderWidth+spacer).removeFromTop(sliderHeight).withTrimmedTop(spacer));
     
     Rectangle<int> area1 = getLocalBounds().reduced(25);
     

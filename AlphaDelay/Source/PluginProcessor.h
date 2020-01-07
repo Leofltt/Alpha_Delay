@@ -12,7 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CircularBuffer.h"
-#include "SimpleFilter.h"
+//#include "SimpleFilter.h"
+#include "StateVariableFilter.h"
 
 #define FB_ID "feedback"
 #define FB_NAME "Feedback"
@@ -26,6 +27,8 @@
 #define CF_NAME "Cutoff Frequency"
 #define FT_ID "filterType"
 #define FT_NAME "Filter Type"
+#define RES_ID "q"
+#define RES_NAME "Q"
 
 //==============================================================================
 /**
@@ -74,7 +77,7 @@ public:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     CircularBuffer c;
-    OnePoleOneZero filter;
+    StateVariableFilter filter;
     
     
 private:

@@ -33,6 +33,7 @@ private:
     Slider m_dryWetSlider;
     Slider m_spreadSlider;
     Slider m_cutoffSlider;
+    Slider m_resoSlider;
     
     ComboBox m_filterType;
     
@@ -41,6 +42,7 @@ private:
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_drywetValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_spreadValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_cutoffValue;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_resoValue;
     
     std::unique_ptr <AudioProcessorValueTreeState::ComboBoxAttachment> p_comboBoxValue;
     
