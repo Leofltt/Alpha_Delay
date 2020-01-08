@@ -44,7 +44,7 @@ private:
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_cutoffValue;
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> p_resoValue;
     
-    std::unique_ptr <AudioProcessorValueTreeState::ComboBoxAttachment> p_comboBoxValue;
+    std::unique_ptr <AudioProcessorValueTreeState::ComboBoxAttachment> p_filterType;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DelayGUI)
 };

@@ -37,8 +37,10 @@ AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createPa
     auto range = NormalisableRange<float> (0.0f, 20000.0f);
     range.setSkewForCentre(1000);
     
-    auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 800.0f);
-    auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, 0.5f, 500.0f,10.0f);
+    auto range2 = NormalisableRange<float> (0.0f, 2.0f);
+    
+    auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 1000.0f);
+    auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, range2, 2.0f);
     
     auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f,0.2f);
     auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f,0.0f);

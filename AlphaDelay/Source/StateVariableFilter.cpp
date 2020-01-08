@@ -35,7 +35,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
         auto w = buffer.getWritePointer(channel);
         auto r = buffer.getReadPointer(channel);
         auto f1 = 2 * sin( M_PI * cutoff/float(sampleRate));
-        auto q1 = 1/reso;
+        auto q1 = reso;
         float output;
         int n = processBlockLength;
         
@@ -55,7 +55,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
             if (filterType == 2) output = hpf;
             if (filterType == 3) output = notch;
             
-            buffer.addSample(channel, *w + n, output);
+            buffer.setSample(channel, *w + n, output);
             
         }
     }

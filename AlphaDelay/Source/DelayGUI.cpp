@@ -57,14 +57,14 @@ DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
     m_filterType.addItem("High Pass Filter", 3);
     m_filterType.addItem("Notch Filter", 4);
     addAndMakeVisible(&m_filterType);
+    p_filterType = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(processor.m_parameters, FT_ID,m_filterType);
     
     m_resoSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     m_resoSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
+    m_resoSlider.setRange(0, 2);
+   // m_resoSlider.setSkewFactorFromMidPoint(1000.0);
     m_resoSlider.setPopupDisplayEnabled(true, true, this);
     addAndMakeVisible(&m_resoSlider);
-    m_resoSlider.setRange(0.5, 500);
-    
-    
     p_resoValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, RES_ID,m_resoSlider);
 
     
