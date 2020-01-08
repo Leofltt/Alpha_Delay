@@ -61,8 +61,8 @@ DelayGUI::DelayGUI(AlphaDelayAudioProcessor& p) : processor(p)
     
     m_resoSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     m_resoSlider.setTextBoxStyle(Slider::NoTextBox, true, 40, 20);
-    m_resoSlider.setRange(0, 2);
-   // m_resoSlider.setSkewFactorFromMidPoint(1000.0);
+    m_resoSlider.setRange(0, 100);
+    m_resoSlider.setSkewFactorFromMidPoint(10.0);
     m_resoSlider.setPopupDisplayEnabled(true, true, this);
     addAndMakeVisible(&m_resoSlider);
     p_resoValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.m_parameters, RES_ID,m_resoSlider);
