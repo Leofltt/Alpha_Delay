@@ -30,6 +30,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
     auto reso = m_Q.load();
     auto filterType = m_filterType.load();
     const auto kDenorm = 1.0e-24;
+    float hist;
     
     for (int channel = 0; channel < total_num_channels; ++channel)
     {
@@ -40,14 +41,12 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
         auto q1 = sqrt(1.0 - atan(sqrt(reso)) * 2.0 / M_PI);;
         auto scale = sqrt(q1);
         float output;
-        int n = processBlockLength;
-        float hist = 0;
         
-        while (--n != 0)
+        for (int n = 0; n != processBlockLength; ++n)
         {
-            float x = buffer.getSample(channel, *r + n);
+            float x = r[n];
             
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; ++i)
             {
                 if (i == 0) hist = x;
                 if (i == 1) x = (x + hist) / 2;
@@ -56,7 +55,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
                 hpf = scale * x - lpf - q1*d1;
                 bpf = f1 * hpf + d1;
                 notch = hpf + lpf;
-                
+
             }
             
             d1 = bpf;
@@ -67,7 +66,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
             if (filterType == 2) output = hpf;
             if (filterType == 3) output = notch;
             
-            buffer.setSample(channel, *w + n, output);
+            w[n] = output;
             
         }
     }
