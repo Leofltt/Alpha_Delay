@@ -21,6 +21,10 @@
 			isa = PBXBuildFile;
 			fileRef = A9DFE4BDB8C2EFBAD9E98401;
 		};
+		13188A177661609EF05E4220 = {
+			isa = PBXBuildFile;
+			fileRef = E91057D7FF65F4D3A432227C;
+		};
 		3F3765886968AB97A5B722E4 = {
 			isa = PBXBuildFile;
 			fileRef = A37214A1C42601478DB15A2C;
@@ -28,10 +32,6 @@
 		C9A56A584122BA231B4AB435 = {
 			isa = PBXBuildFile;
 			fileRef = B12619B0DF5D61A425A91FA6;
-		};
-		13188A177661609EF05E4220 = {
-			isa = PBXBuildFile;
-			fileRef = E91057D7FF65F4D3A432227C;
 		};
 		3662B5EF1C51CA40A9AEA114 = {
 			isa = PBXBuildFile;
@@ -257,13 +257,6 @@
 			name = "juce_data_structures";
 			path = "/Applications/JUCE/modules/juce_data_structures";
 			sourceTree = "<absolute>";
-		};
-		4634A6615BFB9F5E5934A234 = {
-			isa = PBXFileReference;
-			lastKnownFileType = text.plist.xml;
-			name = AlphaDelay.entitlements;
-			path = AlphaDelay.entitlements;
-			sourceTree = "SOURCE_ROOT";
 		};
 		477EBB3CE4CEEBD00346B371 = {
 			isa = PBXFileReference;
@@ -762,9 +755,9 @@
 		FE4E3421A82AFCF4954C20BA = {
 			isa = PBXGroup;
 			children = (
+				E91057D7FF65F4D3A432227C,
 				A37214A1C42601478DB15A2C,
 				B12619B0DF5D61A425A91FA6,
-				E91057D7FF65F4D3A432227C,
 				DF45ED9FB2069BE0518F7A18,
 				FFAE0898E960565FC518B52C,
 				FC9AAF9F6E01A11D78193EDA,
@@ -807,6 +800,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -814,6 +808,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -862,7 +857,7 @@
 				LIBRARY_STYLE = Bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-bundle -lAlphaDelay";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -916,7 +911,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-bundle -lAlphaDelay";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = vst3;
@@ -969,7 +964,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-bundle -lAlphaDelay";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component;
@@ -1024,7 +1019,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-bundle -lAlphaDelay";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -d ppc64_$ppc64 -d x86_64_$x86_64 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I \"$(DEVELOPER_DIR)/Extras/CoreAudio/AudioUnits/AUPublic/AUBase\" -I \"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AudioUnit.framework/Headers\"";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 				WRAPPER_EXTENSION = component;
@@ -1071,7 +1066,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-lAlphaDelay";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 			};
@@ -1119,7 +1114,7 @@
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				OTHER_LDFLAGS = "-lAlphaDelay";
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				USE_HEADERMAP = NO;
 			};
@@ -1164,7 +1159,7 @@
 				);
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -1212,7 +1207,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.LeoFoletto.AlphaDelay;
+				PRODUCT_BUNDLE_IDENTIFIER = com.LeonardoFoletto.AlphaDelay;
 				PRODUCT_NAME = "AlphaDelay";
 				SKIP_INSTALL = YES;
 				USE_HEADERMAP = NO;
@@ -1261,6 +1256,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "AlphaDelay";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1306,6 +1302,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PRODUCT_NAME = "AlphaDelay";
+				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wreorder";
 				ZERO_LINK = NO;
 			};
@@ -1458,9 +1455,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13188A177661609EF05E4220,
 				3F3765886968AB97A5B722E4,
 				C9A56A584122BA231B4AB435,
-				13188A177661609EF05E4220,
 				3662B5EF1C51CA40A9AEA114,
 				DE86BAF6584CEEDB4AD9D395,
 				B26777069733371D5608DD76,
@@ -1606,7 +1603,7 @@
 		3E12F30ED762A3275BECF451 = {
 			isa = PBXProject;
 			buildConfigurationList = 9C27B46DA881979220566F69;
-			attributes = { LastUpgradeCheck = 1100; ORGANIZATIONNAME = "Leo Foletto"; TargetAttributes = { E23AD738DF9594AF9D18B6D3 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };1C0B8392B17C959B1117C60B = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };E122F34C6F467A66BB6ED68C = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };C827B4689A830559C0596006 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };73EA69F92CA188ADB23F99E8 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; }; }; };
+			attributes = { LastUpgradeCheck = 1100; ORGANIZATIONNAME = "LeonardoFoletto"; TargetAttributes = { E23AD738DF9594AF9D18B6D3 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };1C0B8392B17C959B1117C60B = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };E122F34C6F467A66BB6ED68C = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };C827B4689A830559C0596006 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; };73EA69F92CA188ADB23F99E8 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; com.apple.HardenedRuntime = { enabled = 0; }; }; }; }; };
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
 			mainGroup = E530309CE634AF1A0E39A2AF;

@@ -17,7 +17,7 @@ class OnePoleOneZero
 public:
     
     void processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
-    void updateFilter(float *cf, int sr, float *ft);
+    void updateFilter(float cf, int sr, float ft);
     void setFilter();
     
 private:
@@ -31,8 +31,7 @@ private:
     float x1 {0}, y1 {0};
     
     
-    std::atomic<double> m_cutoff;
-    std::atomic<double> m_filterType;
-    static_assert(std::atomic<double>::is_always_lock_free);
+    double m_cutoff;
+    double m_filterType;
     
 };

@@ -10,19 +10,19 @@
 
 #include "SimpleFilter.h"
 
-void OnePoleOneZero::updateFilter(float *cf, int sr, float *ft)
+void OnePoleOneZero::updateFilter(float cf, int sr, float ft)
 {
-    auto cutoff = m_cutoff.load();
-    auto filtertype = m_filterType.load();
-    if (*cf != cutoff) m_cutoff.store(*cf);
+    auto cutoff = m_cutoff;
+    auto filtertype = m_filterType;
+    if (cf != cutoff) m_cutoff = cf;
     if (sr != sampleRate) sampleRate = sr;
-    if (*ft != filtertype) m_filterType.store(*ft);
+    if (ft != filtertype) m_filterType = ft;
     
 }
 
 void OnePoleOneZero::setLowPass()
 {
-    auto cutoff = m_cutoff.load();
+    auto cutoff = m_cutoff;
     auto sr = float(sampleRate);
     a0 = cutoff / (sr + cutoff);
     a1 = a0;
@@ -31,7 +31,7 @@ void OnePoleOneZero::setLowPass()
 
 void OnePoleOneZero::setHighPass()
 {
-    auto cutoff = m_cutoff.load();
+    auto cutoff = m_cutoff;
     auto sr = float(sampleRate);
     a0 = sr / (sr + cutoff);
     a1 = -a0;
@@ -40,7 +40,7 @@ void OnePoleOneZero::setHighPass()
 
 void OnePoleOneZero::setFilter()
 {
-    auto ft = m_filterType.load();
+    auto ft = m_filterType;
     
     if (ft == 0) setLowPass();
     if (ft == 1) setHighPass();

@@ -8,7 +8,7 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.LeoFoletto.AlphaDelay</string>
+    <string>com.LeonardoFoletto.AlphaDelay</string>
     <key>CFBundleName</key>
     <string>AlphaDelay</string>
     <key>CFBundleDisplayName</key>

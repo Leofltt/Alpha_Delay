@@ -49,7 +49,7 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "AlphaDelay";
-    const char* const  companyName    = "Leo Foletto";
+    const char* const  companyName    = "LeonardoFoletto";
     const char* const  versionString  = "1.0.0";
     const int          versionNumber  = 0x10000;
 }

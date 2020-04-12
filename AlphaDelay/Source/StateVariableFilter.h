@@ -17,18 +17,16 @@ class StateVariableFilter
 public:
         
         void processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
-        void updateFilter(float *cf, int sr, float *ft, float *q);
-      //  void setFilter();
+        void updateFilter(float cf, int sr, float ft, float q);
         
 private:
        
         int sampleRate { 44100 };
-    float d1 {0}, d2 {0};
+        float d1 {0}, d2 {0};
           
           
-        std::atomic<double> m_cutoff;
-        std::atomic<double> m_filterType;
-        std::atomic<double> m_Q;
-        static_assert(std::atomic<double>::is_always_lock_free);
+        double m_cutoff;
+        double m_filterType;
+        double m_Q;
     
 };

@@ -130,8 +130,8 @@ void AlphaDelayAudioProcessor::changeProgramName (int index, const String& newNa
 //==============================================================================
 void AlphaDelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    c.initParameters(m_parameters.getRawParameterValue(FB_ID), m_parameters.getRawParameterValue(SPREAD_ID), m_parameters.getRawParameterValue(DELAYTIME_ID), m_parameters.getRawParameterValue(DRYWET_ID), sampleRate, samplesPerBlock, 5);
-    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID), sampleRate, m_parameters.getRawParameterValue(FT_ID),m_parameters.getRawParameterValue(RES_ID));
+    c.initParameters(m_parameters.getRawParameterValue(FB_ID)->load(), m_parameters.getRawParameterValue(SPREAD_ID)->load(), m_parameters.getRawParameterValue(DELAYTIME_ID)->load(), m_parameters.getRawParameterValue(DRYWET_ID)->load(), sampleRate, samplesPerBlock, 5);
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), sampleRate, m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
 }
 void AlphaDelayAudioProcessor::releaseResources()
 {
@@ -168,13 +168,12 @@ void AlphaDelayAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID), getSampleRate(), m_parameters.getRawParameterValue(FT_ID),m_parameters.getRawParameterValue(RES_ID));
-    //filter.setFilter();
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), getSampleRate(), m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
-    c.processDelay(buffer, totalNumInputChannels, m_parameters.getRawParameterValue(FB_ID), m_parameters.getRawParameterValue(SPREAD_ID), m_parameters.getRawParameterValue(DELAYTIME_ID), m_parameters.getRawParameterValue(DRYWET_ID));
+    c.processDelay(buffer, totalNumInputChannels, m_parameters.getRawParameterValue(FB_ID)->load(), m_parameters.getRawParameterValue(SPREAD_ID)->load(), m_parameters.getRawParameterValue(DELAYTIME_ID)->load(), m_parameters.getRawParameterValue(DRYWET_ID)->load());
     filter.processFilter(buffer, totalNumInputChannels, buffer.getNumSamples());
 
 }

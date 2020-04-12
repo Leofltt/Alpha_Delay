@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="qQW2Eo" name="AlphaDelay" projectType="audioplug" jucerVersion="5.4.5"
-              cppLanguageStandard="17" companyName="Leo Foletto">
+<JUCERPROJECT id="qQW2Eo" name="AlphaDelay" projectType="audioplug" jucerVersion="5.4.7"
+              cppLanguageStandard="17" companyName="LeonardoFoletto">
   <MAINGROUP id="OdxOcF" name="AlphaDelay">
     <GROUP id="{A0ED215A-104E-2540-9F96-913D00308F67}" name="Source">
       <FILE id="z3JFhC" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -68,7 +68,7 @@
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
-    <OSX/>
+    <OSX buildEnabled="1"/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
 </JUCERPROJECT>

@@ -14,8 +14,8 @@
 
 class CircularBuffer {
 public:
-    void processDelay(AudioBuffer<float>& buffer, int total_num_channels, float *fb, float *spread, float *delaytime, float *drywet);
-    void initParameters(float *fb, float *spread, float *delaytime, float *drywet, int sr, int samplesperblock, int maxdel);
+    void processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet);
+    void initParameters(float fb, float spread, float delaytime, float drywet, int sr, int samplesperblock, int maxdel);
     
 private:
     AudioBuffer<float> delayBuffer;
@@ -24,15 +24,14 @@ private:
     int sampleRate { 44100 };
     int maxDel { 5 };
     
-    void writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float* drywet);
-    void readDelayBuffer(AudioBuffer<float>& buffer, int channel, float* dt,float* drywet,float* spread);
-    void delayFeedback(AudioBuffer<float>& buffer, int channel, float* fb, float* spread, float* dt);
+    void writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywet);
+    void readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,float drywet,float spread);
+    void delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt);
     
-    std::atomic<double> m_delayTime;
-    std::atomic<double> m_feedback;
-    std::atomic<double> m_spread;
-    std::atomic<double> m_drywet;
-    static_assert(std::atomic<double>::is_always_lock_free);
+    double m_delayTime;
+    double m_feedback;
+    double m_spread;
+    double m_drywet;
     
 };
 

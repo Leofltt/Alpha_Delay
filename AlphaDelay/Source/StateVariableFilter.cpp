@@ -11,24 +11,21 @@
 #include "StateVariableFilter.h"
 #include <math.h>
 
-void StateVariableFilter::updateFilter(float *cf, int sr, float *ft, float *q)
+void StateVariableFilter::updateFilter(float cf, int sr, float ft, float q)
 {
-    auto cutoff = m_cutoff.load();
-    auto filtertype = m_filterType.load();
-    auto res = m_Q.load();
-    if (*cf != cutoff) m_cutoff.store(*cf);
+    if (cf != m_cutoff) m_cutoff = cf;
     if (sr != sampleRate) sampleRate = sr;
-    if (*ft != filtertype) m_filterType.store(*ft);
-    if (*q != res) m_Q.store(*q);
+    if (ft != m_filterType) m_filterType = ft;
+    if (q != m_Q) m_Q = q;
     
 }
 
 void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
 {
     
-    auto cutoff = m_cutoff.load();
-    auto reso = m_Q.load();
-    auto filterType = m_filterType.load();
+    auto cutoff = m_cutoff;
+    auto reso = m_Q;
+    auto filterType = m_filterType;
     const auto kDenorm = 1.0e-24;
     float hist;
     
