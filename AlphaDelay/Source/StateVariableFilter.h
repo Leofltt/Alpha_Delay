@@ -18,15 +18,18 @@ public:
         
         void processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
         void updateFilter(float cf, int sr, float ft, float q);
+        void calculateCoeff();
         
 private:
        
-        int sampleRate { 44100 };
-        float d1 {0}, d2 {0};
+    int sampleRate { 44100 };
+    float integrator_z[2] {0, 0};
           
           
-        double m_cutoff;
-        double m_filterType;
-        double m_Q;
+    float m_cutoff;
+    float m_filterType;
+    float m_Q;
+    
+    float alpha0, alpha, rho, analogMatchSigma;
     
 };

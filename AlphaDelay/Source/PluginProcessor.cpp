@@ -37,11 +37,11 @@ AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createPa
     auto range = NormalisableRange<float> (0.0f, 20000.0f);
     range.setSkewForCentre(1000);
     
-    auto range2 = NormalisableRange<float> (0.0f, 100.0f);
-    range2.setSkewForCentre(10);
+    auto range2 = NormalisableRange<float> (0.0f, 2.0f);
+    range2.setSkewForCentre(0.5);
     
     auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 1000.0f);
-    auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, range2, 2.0f);
+    auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, range2, 0.7f);
     
     auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f,0.2f);
     auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f,0.0f);
@@ -132,6 +132,7 @@ void AlphaDelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
 {
     c.initParameters(m_parameters.getRawParameterValue(FB_ID)->load(), m_parameters.getRawParameterValue(SPREAD_ID)->load(), m_parameters.getRawParameterValue(DELAYTIME_ID)->load(), m_parameters.getRawParameterValue(DRYWET_ID)->load(), sampleRate, samplesPerBlock, 5);
     filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), sampleRate, m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
+    filter.calculateCoeff();
 }
 void AlphaDelayAudioProcessor::releaseResources()
 {

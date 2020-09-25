@@ -11,53 +11,61 @@
 #include "StateVariableFilter.h"
 #include <math.h>
 
+#define TWOPI M_PI*2
+
 void StateVariableFilter::updateFilter(float cf, int sr, float ft, float q)
 {
     if (cf != m_cutoff) m_cutoff = cf;
     if (sr != sampleRate) sampleRate = sr;
     if (ft != m_filterType) m_filterType = ft;
     if (q != m_Q) m_Q = q;
+    calculateCoeff();
     
+}
+
+void StateVariableFilter::calculateCoeff()
+{
+    float wd = TWOPI * m_cutoff;
+    float T = 1.0 / sampleRate;
+    float wa = (2.0 / T)*tan(wd*T / 2.0);
+    float g = wa * T / 2.0;
+    float R = 1.0 / (2.0 * m_Q);
+    
+    alpha0 = 1.0 / (1.0 + 2.0 * R * g + g * g);
+    alpha = g;
+    rho = 2.0 * R + g;
+    
+    float f_o = (sampleRate / 2.0) / m_cutoff;
+    analogMatchSigma = 1.0 / (alpha * f_o * f_o);
 }
 
 void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
 {
-    
-    auto cutoff = m_cutoff;
-    auto reso = m_Q;
     auto filterType = m_filterType;
-    const auto kDenorm = 1.0e-24;
-    float hist;
     
     for (int channel = 0; channel < total_num_channels; ++channel)
     {
         float lpf, hpf, bpf, notch;
         auto w = buffer.getWritePointer(channel);
         auto r = buffer.getReadPointer(channel);
-        auto f1 = 2 * sin( M_PI * cutoff/float(sampleRate * 2));
-        auto q1 = sqrt(1.0 - atan(sqrt(reso)) * 2.0 / M_PI);;
-        auto scale = sqrt(q1);
         float output;
+        
         
         for (int n = 0; n != processBlockLength; ++n)
         {
             float x = r[n];
+            hpf = alpha0 * (x - rho * integrator_z[0] - integrator_z[1]);
+            bpf = alpha * hpf + integrator_z[0];
+            lpf = alpha * bpf + integrator_z[1];
+            notch = hpf + lpf;
             
-            for (int i = 0; i < 2; ++i)
-            {
-                if (i == 0) hist = x;
-                if (i == 1) x = (x + hist) / 2;
-                
-                lpf = d2 + f1 * d1 - kDenorm;
-                hpf = scale * x - lpf - q1*d1;
-                bpf = f1 * hpf + d1;
-                notch = hpf + lpf;
-
-            }
+            float sn = integrator_z[0];
             
-            d1 = bpf;
-            d2 = lpf + kDenorm;
-
+            integrator_z[0] = alpha * hpf + bpf;
+            integrator_z[1] = alpha * bpf + lpf;
+            
+            lpf  += analogMatchSigma * sn;
+            
             if (filterType == 0) output = lpf;
             if (filterType == 1) output = bpf;
             if (filterType == 2) output = hpf;

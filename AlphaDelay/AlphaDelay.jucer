@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="qQW2Eo" name="AlphaDelay" projectType="audioplug" jucerVersion="5.4.7"
-              cppLanguageStandard="17" companyName="LeonardoFoletto">
+<JUCERPROJECT id="qQW2Eo" name="AlphaDelay" projectType="audioplug" cppLanguageStandard="17"
+              companyName="flttplugs" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="OdxOcF" name="AlphaDelay">
     <GROUP id="{A0ED215A-104E-2540-9F96-913D00308F67}" name="Source">
       <FILE id="z3JFhC" name="PluginProcessor.cpp" compile="1" resource="0"
