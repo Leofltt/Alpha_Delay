@@ -66,10 +66,24 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
             
             lpf  += analogMatchSigma * sn;
             
-            if (filterType == 0) output = lpf;
-            if (filterType == 1) output = bpf;
-            if (filterType == 2) output = hpf;
-            if (filterType == 3) output = notch;
+            switch (int(filterType))
+            {
+                case 0:
+                    output = lpf;
+                    break;
+                case 1:
+                    output = bpf;
+                    break;
+                case 2:
+                    output = bpf;
+                    break;
+                case 3:
+                    output = hpf;
+                    break;
+                default:
+                    output = notch;
+                    break;
+            }
             
             w[n] = output;
             
