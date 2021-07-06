@@ -111,6 +111,5 @@ void DelayGUI::resized()
     Rectangle<int> area1 = getLocalBounds().reduced(25);
     
     m_filterType.setBounds(area1.removeFromBottom(20));
-    
 
 }
