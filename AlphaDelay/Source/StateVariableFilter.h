@@ -17,7 +17,7 @@ class StateVariableFilter
 public:
         
         void processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
-        void updateFilter(float cf, int sr, float ft, float q);
+        void updateFilter(float cf, int sr, int ft, float q);
         void calculateCoeff();
         
 private:
@@ -27,7 +27,7 @@ private:
           
           
     float m_cutoff;
-    float m_filterType;
+    int m_filterType;
     float m_Q;
     
     float alpha0, alpha, rho, analogMatchSigma;

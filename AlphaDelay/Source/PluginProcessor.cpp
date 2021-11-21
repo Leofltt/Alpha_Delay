@@ -32,7 +32,7 @@ m_parameters(*this, nullptr, "PARAMETERS", createParameterLayout())
 }
 AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createParameterLayout(){
     
-    std::vector<std::unique_ptr<RangedAudioParameter>> t_params;
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
     auto range = NormalisableRange<float> (0.0f, 20000.0f);
     range.setSkewForCentre(1000);
@@ -43,22 +43,22 @@ AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createPa
     auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 1000.0f);
     auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, range2, 0.7f);
     
-    auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f,0.2f);
-    auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f,0.0f);
-    auto dwParam = std::make_unique<AudioParameterFloat>(DRYWET_ID, DRYWET_NAME, 0.0f, 1.0f,0.7f);
-    auto dtParam = std::make_unique<AudioParameterFloat>(DELAYTIME_ID, DELAYTIME_NAME, 1.0f, 5000.0f,500.0f);
+    auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f, 0.2f);
+    auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f, 0.0f);
+    auto dwParam = std::make_unique<AudioParameterFloat>(DRYWET_ID, DRYWET_NAME, 0.0f, 1.0f, 0.7f);
+    auto dtParam = std::make_unique<AudioParameterFloat>(DELAYTIME_ID, DELAYTIME_NAME, 1.0f, 5000.0f, 500.0f);
     
-    auto filterTypeParam = std::make_unique<AudioParameterFloat>(FT_ID, FT_NAME, 0, 3, 0);
+    auto filterTypeParam = std::make_unique<AudioParameterInt>(FT_ID, FT_NAME, 0, 3, 0);
     
-    t_params.push_back(std::move(fbParam));
-    t_params.push_back(std::move(spreadParam));
-    t_params.push_back(std::move(dwParam));
-    t_params.push_back(std::move(dtParam));
-    t_params.push_back(std::move(cfParam));
-    t_params.push_back(std::move(resParam));
-    t_params.push_back(std::move(filterTypeParam));
-
-    return { t_params.begin(), t_params.end() };
+    layout.add(std::move(cfParam));
+    layout.add(std::move(resParam));
+    layout.add(std::move(fbParam));
+    layout.add(std::move(spreadParam));
+    layout.add(std::move(dwParam));
+    layout.add(std::move(dtParam));
+    layout.add(std::move(filterTypeParam));
+    
+    return layout;
 }
 
 AlphaDelayAudioProcessor::~AlphaDelayAudioProcessor()
@@ -131,7 +131,7 @@ void AlphaDelayAudioProcessor::changeProgramName (int index, const String& newNa
 void AlphaDelayAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     c.initParameters(m_parameters.getRawParameterValue(FB_ID)->load(), m_parameters.getRawParameterValue(SPREAD_ID)->load(), m_parameters.getRawParameterValue(DELAYTIME_ID)->load(), m_parameters.getRawParameterValue(DRYWET_ID)->load(), sampleRate, samplesPerBlock, 5);
-    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), sampleRate, m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), sampleRate,m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
     filter.calculateCoeff();
 }
 void AlphaDelayAudioProcessor::releaseResources()
@@ -169,7 +169,7 @@ void AlphaDelayAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuf
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
-    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), getSampleRate(), m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
+    filter.updateFilter(m_parameters.getRawParameterValue(CF_ID)->load(), getSampleRate(),m_parameters.getRawParameterValue(FT_ID)->load(),m_parameters.getRawParameterValue(RES_ID)->load());
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
@@ -188,6 +188,7 @@ bool AlphaDelayAudioProcessor::hasEditor() const
 AudioProcessorEditor* AlphaDelayAudioProcessor::createEditor()
 {
     return new AlphaDelayAudioProcessorEditor (*this);
+//    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================

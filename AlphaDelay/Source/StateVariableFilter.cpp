@@ -13,7 +13,7 @@
 
 #define TWOPI M_PI*2
 
-void StateVariableFilter::updateFilter(float cf, int sr, float ft, float q)
+void StateVariableFilter::updateFilter(float cf, int sr, int ft, float q)
 {
     if (cf != m_cutoff) m_cutoff = cf;
     if (sr != sampleRate) sampleRate = sr;
@@ -66,7 +66,7 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
             
             lpf  += analogMatchSigma * sn;
             
-            switch (int(filterType))
+            switch (filterType)
             {
                 case 0:
                     output = lpf;
@@ -75,13 +75,13 @@ void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_nu
                     output = bpf;
                     break;
                 case 2:
-                    output = bpf;
-                    break;
-                case 3:
                     output = hpf;
                     break;
-                default:
+                case 3:
                     output = notch;
+                    break;
+                default:
+                    output = lpf;
                     break;
             }
             
