@@ -48,12 +48,14 @@ void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,fl
 
     if (spread != spr) m_spread = spread;
     
-    if (channel % 2 == 1) spread *= -1;
-
+    if (channel & (1<<0)) spread *= -1;
+    
     const int d = delayBuffer.getNumSamples();
     const int b = buffer.getNumSamples();
     auto w = buffer.getWritePointer(channel);
-    const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
+    
+    int temp = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000));
+    const int readPosition = temp >= d ? temp -= d : temp;
     const float* delay_data = delayBuffer.getReadPointer(channel);
     float increment;
     
@@ -70,7 +72,8 @@ void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,fl
         
         for (int n = 0; n != b; n ++)
         {
-            const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
+            int readTemp = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000));
+            const int readPosition = readTemp >= d ? readTemp -= d : readTemp;
             w[n] +=  delay_data[readPosition + n];
             delt += increment;
         }
@@ -80,7 +83,8 @@ void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,fl
         const int remaining_data = d - readPosition;
         for (int n = 0; n != b; n ++)
         {
-            const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
+            int readTemp = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000));
+            const int readPosition = readTemp >= d ? readTemp -= d : readTemp;
             if (n < remaining_data)
             {
                 w[n] +=  delay_data[readPosition + n];
@@ -114,7 +118,8 @@ void Delay::delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, flo
     
     if (channel & (1<<0)) spread *= -1;
     
-    const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
+    int readTemp = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000));
+    const int readPosition = readTemp >= d ? readTemp -= d : readTemp;
 
     if (d > b + writePosition)
     {
