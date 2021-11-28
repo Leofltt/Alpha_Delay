@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "CircularBuffer.h"
+#include "Delay.h"
 //#include "SimpleFilter.h"
 #include "StateVariableFilter.h"
 
@@ -76,7 +76,7 @@ public:
     AudioProcessorValueTreeState m_parameters;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
-    CircularBuffer c;
+    Delay c;
     StateVariableFilter filter;
     
     

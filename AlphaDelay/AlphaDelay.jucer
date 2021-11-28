@@ -8,11 +8,9 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="UtlhwQ" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="RYmA1v" name="CircularBuffer.cpp" compile="1" resource="0"
-            file="Source/CircularBuffer.cpp"/>
+      <FILE id="RYmA1v" name="Delay.cpp" compile="1" resource="0" file="Source/Delay.cpp"/>
       <FILE id="o2mWV5" name="DelayGUI.cpp" compile="1" resource="0" file="Source/DelayGUI.cpp"/>
-      <FILE id="XhG2WT" name="CircularBuffer.h" compile="0" resource="0"
-            file="Source/CircularBuffer.h"/>
+      <FILE id="XhG2WT" name="Delay.h" compile="0" resource="0" file="Source/Delay.h"/>
       <FILE id="uu6nYX" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="hGdVDE" name="StateVariableFilter.cpp" compile="1" resource="0"

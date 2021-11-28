@@ -8,10 +8,10 @@
   ==============================================================================
 */
 
-#include "CircularBuffer.h"
+#include "Delay.h"
 
 
-void CircularBuffer::writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywet)
+void Delay::writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywet)
 {
     float gain = m_drywet;
 
@@ -32,7 +32,7 @@ void CircularBuffer::writeDelayBuffer(AudioBuffer<float>& buffer, int channel,fl
     }
 };
 
-void CircularBuffer::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,float drywet, float spread)
+void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,float drywet, float spread)
 {
     auto delt = m_delayTime;  // in millis
     auto spr = m_spread;
@@ -97,7 +97,7 @@ void CircularBuffer::readDelayBuffer(AudioBuffer<float>& buffer, int channel, fl
     m_delayTime = delt;
 };
 
-void CircularBuffer::delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt)
+void Delay::delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt)
 {
     auto gain = m_feedback;
     
@@ -112,7 +112,7 @@ void CircularBuffer::delayFeedback(AudioBuffer<float>& buffer, int channel, floa
     auto spr = m_spread;
 
     
-    if (channel % 2 == 1) spread *= -1;
+    if (channel & (1<<0)) spread *= -1;
     
     const int readPosition = static_cast<int>(d + writePosition - (sampleRate * (delt + spr) / 1000)) % d;
 
@@ -131,7 +131,7 @@ void CircularBuffer::delayFeedback(AudioBuffer<float>& buffer, int channel, floa
     m_delayTime = delt;
 };
 
-void CircularBuffer::initParameters(float fb, float spread, float delaytime, float drywet, int sr, int samplesPerBlock, int maxDel)
+void Delay::initParameters(float fb, float spread, float delaytime, float drywet, int sr, int samplesPerBlock, int maxDel)
 {
     const int delayBSize = sampleRate * maxDel + samplesPerBlock;
     delayBuffer.setSize(2, delayBSize);
@@ -149,7 +149,7 @@ void CircularBuffer::initParameters(float fb, float spread, float delaytime, flo
     if (sampleRate != sr) sampleRate = sr;
 };
 
-void CircularBuffer::processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet)
+void Delay::processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet)
 {
     const int bufferLength = buffer.getNumSamples();
     const int delayLength = delayBuffer.getNumSamples();
@@ -163,5 +163,7 @@ void CircularBuffer::processDelay(AudioBuffer<float>& buffer, int total_num_chan
     }
 
     writePosition += bufferLength;
-    writePosition %= delayLength;
-};
+    if (writePosition >= delayLength)
+    {
+        writePosition -= delayLength;
+    }};

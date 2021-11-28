@@ -12,7 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class CircularBuffer {
+class Delay {
 public:
     void processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet);
     void initParameters(float fb, float spread, float delaytime, float drywet, int sr, int samplesperblock, int maxdel);
