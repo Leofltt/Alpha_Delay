@@ -79,6 +79,11 @@ public:
     Delay c;
     StateVariableFilter filter;
     
+    LinearSmoothedValue<float> smoothDelayTime { 500.0f };
+    LinearSmoothedValue<float> smoothDelayFeedback { 0.0f };
+    LinearSmoothedValue<float> smoothCF { 20000.0f };
+    LinearSmoothedValue<float> smoothQ { 0.5f };
+    LinearSmoothedValue<float> smoothDelayDryWet { 0.0f };
     
 private:
     
