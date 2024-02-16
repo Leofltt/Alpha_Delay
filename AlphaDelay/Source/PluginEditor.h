@@ -10,21 +10,20 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "DelayGUI.h"
 
 //==============================================================================
 /**
 */
-class AlphaDelayAudioProcessorEditor  : public AudioProcessorEditor
+class AlphaDelayAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
     AlphaDelayAudioProcessorEditor (AlphaDelayAudioProcessor&);
     ~AlphaDelayAudioProcessorEditor();
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:

@@ -25,15 +25,15 @@ AlphaDelayAudioProcessorEditor::~AlphaDelayAudioProcessorEditor()
 }
 
 //==============================================================================
-void AlphaDelayAudioProcessorEditor::paint (Graphics& g)
+void AlphaDelayAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.fillAll (Colours::dimgrey);
+    g.fillAll (juce::Colours::dimgrey);
 
 }
 
 void AlphaDelayAudioProcessorEditor::resized()
 {
-    Rectangle<int> area = getLocalBounds();
+    juce::Rectangle<int> area = getLocalBounds();
     
     const int componentWidth = 555;
     const int componentHeight = 250;

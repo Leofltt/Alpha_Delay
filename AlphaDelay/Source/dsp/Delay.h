@@ -14,19 +14,19 @@
 
 class Delay {
 public:
-    void processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet);
+    void processDelay(juce::AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet);
     void initParameters(float fb, float spread, float delaytime, float drywet, int sr, int samplesperblock, int maxdel);
     
 private:
-    AudioBuffer<float> delayBuffer;
+    juce::AudioBuffer<float> delayBuffer;
     
     int writePosition { 0 };
     int sampleRate { 44100 };
     int maxDel { 5 };
     
-    void writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywet);
-    void readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,float drywet,float spread);
-    void delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt);
+    void writeDelayBuffer(juce::AudioBuffer<float>& buffer, int channel,float drywet);
+    void readDelayBuffer(juce::AudioBuffer<float>& buffer, int channel, float dt,float drywet,float spread);
+    void delayFeedback(juce::AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt);
     
     double m_delayTime;
     double m_feedback;

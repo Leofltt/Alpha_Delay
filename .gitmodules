@@ -1,0 +1,3 @@
+[submodule "AlphaDelay/modules/JUCE"]
+	path = AlphaDelay/modules/JUCE
+	url = https://github.com/juce-framework/JUCE

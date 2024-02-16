@@ -10,8 +10,7 @@
 
 #include "Delay.h"
 
-
-void Delay::writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywet)
+void Delay::writeDelayBuffer(juce::AudioBuffer<float>& buffer, int channel,float drywet)
 {
     float gain = m_drywet;
 
@@ -32,7 +31,7 @@ void Delay::writeDelayBuffer(AudioBuffer<float>& buffer, int channel,float drywe
     }
 };
 
-void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,float drywet, float spread)
+void Delay::readDelayBuffer(juce::AudioBuffer<float>& buffer, int channel, float dt,float drywet, float spread)
 {
     auto delt = m_delayTime;  // in millis
     auto spr = m_spread;
@@ -101,7 +100,7 @@ void Delay::readDelayBuffer(AudioBuffer<float>& buffer, int channel, float dt,fl
     m_delayTime = delt;
 };
 
-void Delay::delayFeedback(AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt)
+void Delay::delayFeedback(juce::AudioBuffer<float>& buffer, int channel, float fb, float spread, float dt)
 {
     auto gain = m_feedback;
     
@@ -154,7 +153,7 @@ void Delay::initParameters(float fb, float spread, float delaytime, float drywet
     if (sampleRate != sr) sampleRate = sr;
 };
 
-void Delay::processDelay(AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet)
+void Delay::processDelay(juce::AudioBuffer<float>& buffer, int total_num_channels, float fb, float spread, float delaytime, float drywet)
 {
     const int bufferLength = buffer.getNumSamples();
     const int delayLength = delayBuffer.getNumSamples();

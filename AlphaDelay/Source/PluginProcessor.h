@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "Delay.h"
 //#include "SimpleFilter.h"
 #include "StateVariableFilter.h"
@@ -33,7 +32,7 @@
 //==============================================================================
 /**
 */
-class AlphaDelayAudioProcessor  : public AudioProcessor
+class AlphaDelayAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -48,14 +47,14 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
    #endif
 
-    void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
+    void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor() override;
+    juce::AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
 
     //==============================================================================
-    const String getName() const override;
+    const juce::String getName() const override;
 
     bool acceptsMidi() const override;
     bool producesMidi() const override;
@@ -66,24 +65,24 @@ public:
     int getNumPrograms() override;
     int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    const juce::String getProgramName (int index) override;
+    void changeProgramName (int index, const juce::String& newName) override;
 
     //==============================================================================
-    void getStateInformation (MemoryBlock& destData) override;
+    void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    AudioProcessorValueTreeState m_parameters;
-    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    juce::AudioProcessorValueTreeState m_parameters;
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
     Delay c;
     StateVariableFilter filter;
     
-    LinearSmoothedValue<float> smoothDelayTime { 500.0f };
-    LinearSmoothedValue<float> smoothDelayFeedback { 0.0f };
-    LinearSmoothedValue<float> smoothCF { 20000.0f };
-    LinearSmoothedValue<float> smoothQ { 0.5f };
-    LinearSmoothedValue<float> smoothDelayDryWet { 0.0f };
+    juce::LinearSmoothedValue<float> smoothDelayTime { 500.0f };
+    juce::LinearSmoothedValue<float> smoothDelayFeedback { 0.0f };
+    juce::LinearSmoothedValue<float> smoothCF { 20000.0f };
+    juce::LinearSmoothedValue<float> smoothQ { 0.5f };
+    juce::LinearSmoothedValue<float> smoothDelayDryWet { 0.0f };
     
 private:
     

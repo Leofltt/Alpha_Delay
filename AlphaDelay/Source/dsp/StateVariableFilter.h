@@ -16,7 +16,7 @@ class StateVariableFilter
 {
 public:
         
-        void processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
+        void processFilter(juce::AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength);
         void updateFilter(float cf, int sr, int ft, float q);
         void calculateCoeff();
         

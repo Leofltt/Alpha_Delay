@@ -15,50 +15,50 @@
 //==============================================================================
 AlphaDelayAudioProcessor::AlphaDelayAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
+     : juce::AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
+                       .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
                       #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
+                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        ),
 m_parameters(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    m_parameters.state = ValueTree("savedParams");
+    m_parameters.state = juce::ValueTree("savedParams");
 
     
 }
-AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createParameterLayout(){
+juce::AudioProcessorValueTreeState::ParameterLayout AlphaDelayAudioProcessor::createParameterLayout(){
     
-    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> t_params;
     
-    auto range = NormalisableRange<float> (0.0f, 20000.0f);
+    auto range = juce::NormalisableRange<float> (0.0f, 20000.0f);
     range.setSkewForCentre(1000);
     
-    auto range2 = NormalisableRange<float> (0.0f, 2.0f);
+    auto range2 = juce::NormalisableRange<float> (0.0f, 2.0f);
     range2.setSkewForCentre(0.5);
     
-    auto cfParam = std::make_unique<AudioParameterFloat>(CF_ID, CF_NAME, range, 1000.0f);
-    auto resParam = std::make_unique<AudioParameterFloat>(RES_ID, RES_NAME, range2, 0.7f);
+    auto cfParam = std::make_unique<juce::AudioParameterFloat>(CF_ID, CF_NAME, range, 1000.0f);
+    auto resParam = std::make_unique<juce::AudioParameterFloat>(RES_ID, RES_NAME, range2, 0.7f);
     
-    auto fbParam = std::make_unique<AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f, 0.2f);
-    auto spreadParam = std::make_unique<AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f, 0.0f);
-    auto dwParam = std::make_unique<AudioParameterFloat>(DRYWET_ID, DRYWET_NAME, 0.0f, 1.0f, 0.7f);
-    auto dtParam = std::make_unique<AudioParameterFloat>(DELAYTIME_ID, DELAYTIME_NAME, 1.0f, 5000.0f, 500.0f);
+    auto fbParam = std::make_unique<juce::AudioParameterFloat>(FB_ID, FB_NAME, 0.0f, 1.0f, 0.2f);
+    auto spreadParam = std::make_unique<juce::AudioParameterFloat>(SPREAD_ID, SPREAD_NAME, 0.0f, 50.0f, 0.0f);
+    auto dwParam = std::make_unique<juce::AudioParameterFloat>(DRYWET_ID, DRYWET_NAME, 0.0f, 1.0f, 0.7f);
+    auto dtParam = std::make_unique<juce::AudioParameterFloat>(DELAYTIME_ID, DELAYTIME_NAME, 1.0f, 5000.0f, 500.0f);
     
-    auto filterTypeParam = std::make_unique<AudioParameterInt>(FT_ID, FT_NAME, 0, 3, 0);
+    auto filterTypeParam = std::make_unique<juce::AudioParameterInt>(FT_ID, FT_NAME, 0, 3, 0);
     
-    layout.add(std::move(cfParam));
-    layout.add(std::move(resParam));
-    layout.add(std::move(fbParam));
-    layout.add(std::move(spreadParam));
-    layout.add(std::move(dwParam));
-    layout.add(std::move(dtParam));
-    layout.add(std::move(filterTypeParam));
+    t_params.push_back(std::move(cfParam));
+    t_params.push_back(std::move(resParam));
+    t_params.push_back(std::move(fbParam));
+    t_params.push_back(std::move(spreadParam));
+    t_params.push_back(std::move(dwParam));
+    t_params.push_back(std::move(dtParam));
+    t_params.push_back(std::move(filterTypeParam));
     
-    return layout;
+    return { t_params.begin(), t_params.end() };
 }
 
 AlphaDelayAudioProcessor::~AlphaDelayAudioProcessor()
@@ -66,7 +66,7 @@ AlphaDelayAudioProcessor::~AlphaDelayAudioProcessor()
 }
 
 //==============================================================================
-const String AlphaDelayAudioProcessor::getName() const
+const juce::String AlphaDelayAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
@@ -118,12 +118,12 @@ void AlphaDelayAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String AlphaDelayAudioProcessor::getProgramName (int index)
+const juce::String AlphaDelayAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void AlphaDelayAudioProcessor::changeProgramName (int index, const String& newName)
+void AlphaDelayAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
@@ -154,8 +154,8 @@ bool AlphaDelayAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
   #else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
-    if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
+    if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
+     && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
         return false;
 
     // This checks if the input layout matches the output layout
@@ -169,9 +169,9 @@ bool AlphaDelayAudioProcessor::isBusesLayoutSupported (const BusesLayout& layout
 }
 #endif
 
-void AlphaDelayAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void AlphaDelayAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
+    juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
     
@@ -207,31 +207,30 @@ bool AlphaDelayAudioProcessor::hasEditor() const
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* AlphaDelayAudioProcessor::createEditor()
+juce::AudioProcessorEditor* AlphaDelayAudioProcessor::createEditor()
 {
     return new AlphaDelayAudioProcessorEditor (*this);
-//    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
-void AlphaDelayAudioProcessor::getStateInformation (MemoryBlock& destData)
+void AlphaDelayAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    std::unique_ptr <XmlElement> xml (m_parameters.state.createXml());
+    std::unique_ptr <juce::XmlElement> xml (m_parameters.state.createXml());
     copyXmlToBinary(*xml, destData);
 }
 
 void AlphaDelayAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    std::unique_ptr <XmlElement> t_parameters(getXmlFromBinary(data, sizeInBytes));
+    std::unique_ptr <juce::XmlElement> t_parameters(getXmlFromBinary(data, sizeInBytes));
        
     if (t_parameters != nullptr) {
-        if (t_parameters -> hasTagName(m_parameters.state.getType())) m_parameters.state = ValueTree::fromXml(*t_parameters);
+        if (t_parameters -> hasTagName(m_parameters.state.getType())) m_parameters.state = juce::ValueTree::fromXml(*t_parameters);
     }
 }
 
 //==============================================================================
 // This creates new instances of the plugin..
-AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new AlphaDelayAudioProcessor();
 }

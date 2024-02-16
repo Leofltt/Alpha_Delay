@@ -39,7 +39,7 @@ void StateVariableFilter::calculateCoeff()
     analogMatchSigma = 1.0 / (alpha * f_o * f_o);
 }
 
-void StateVariableFilter::processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
+void StateVariableFilter::processFilter(juce::AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
 {
     auto filterType = m_filterType;
     

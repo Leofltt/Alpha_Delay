@@ -46,7 +46,7 @@ void OnePoleOneZero::setFilter()
     if (ft == 1) setHighPass();
 }
 
-void OnePoleOneZero::processFilter(AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
+void OnePoleOneZero::processFilter(juce::AudioBuffer<float>& buffer, int total_num_channels, int processBlockLength)
 {
     
     for (int channel = 0; channel < total_num_channels; ++channel)
